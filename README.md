@@ -1,4 +1,3 @@
-ld29
-====
+#ld29: Last of the Slime Lords
+## Underneath the Surface
 
-Ludum Dare #29 - Underneath the Surface
