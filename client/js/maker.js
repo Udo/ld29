@@ -1,12 +1,16 @@
 Maker = {
   
+  tileInner : function(t) {
+    return(t.excavated ? '<div class="tileInner tileExcavated te'+t.ns+'"></div>' : '');
+  },
+  
   tile : function(t) {
     return('<div class="tile tile_'+t.type+'" id="'+t.id+'" style="left:'+
       (t.x*Config.tileSize)+
       'px;top:'+
       ((t.y+Config.skyHeight)*Config.tileSize)+
       'px;background-position:'+Maker.getBgPos(t)+';'+
-      '"></div>');
+      '">'+Maker.tileInner(t)+'</div>');
   },
   
   object : function(t) {
@@ -35,7 +39,8 @@ Maker = {
   
   skyObject : function(so) {
     if(so.caption)
-      return('<div class="skyObject smoothPos so'+so.type+'" id="'+so.id+'" style="left:-100px;top:-100px;">'+so.caption+'</div>');
+      return('<div class="skyObject smoothPos so'+so.type+'" id="'+so.id+
+        '" style="left:-100px;top:-100px;opacity:'+(so.opacity ? so.opacity : 1)+';">'+so.caption+'</div>');
     else
       return('<img class="skyObject smoothPos so'+so.type+'" id="'+so.id+'" '+
         ' src="img/'+so.type+'.png" width="64"'+

@@ -2,6 +2,8 @@
 
   header('content-type: text/css');
   
+  $tileSize = 64;
+  
   $rgbBaseTextRaw = '255,204,0';
   $rgbBaseText = 'rgba('.$rgbBaseTextRaw.',1)';
   
@@ -95,9 +97,12 @@ h1, .title {
 }
 
 #stage {
-  height: 500px;
+  height: <?= $tileSize*10 ?>px;
   border-bottom: 2px solid rgba(<?= $rgbBaseTextRaw ?>, 0.5);
   position: relative;
+}
+
+#stage, #toolbar {
   overflow: hidden;
   max-width: 1200px;
   margin-left: auto;
@@ -105,8 +110,8 @@ h1, .title {
 }
 
 .tile {
-  width: 64px;
-  height: 64px;
+  width: <?= $tileSize ?>px;
+  height: <?= $tileSize ?>px;
   background: rgba(<?= $rgbBaseTextRaw ?>, 0.1);
   position: absolute;
   left: 0; top: 0;
@@ -117,10 +122,6 @@ h1, .title {
 .stageObject {
   position: absolute;
   left: 0; top: 0;
-}
-
-.tile:hover {
-  background: rgba(<?= $rgbBaseTextRaw ?>, 0.2);
 }
 
 #sky {
@@ -135,7 +136,7 @@ h1, .title {
 .skyObject {
   position: absolute;
   left: -100; top: -100;
-  width: 64px; height: 64px;
+  width: <?= $tileSize ?>px; height: <?= $tileSize ?>px;
   color: white;
 }
 
@@ -156,7 +157,76 @@ h1, .title {
   background-repeat: no-repeat;
 }
 
+.tileInner {
+  position: absolute;
+  top: 0; left: 0;
+  width: <?= $tileSize ?>px; height: <?= $tileSize ?>px;
+}
 
+.tileExcavated {
+  background: url('../img/cave.png');
+  opacity: 0.6;
+}
 
+.te10110 { background-position: <?= -$tileSize*0 ?>px <?= -$tileSize*0 ?>px; }
+.te10111 { background-position: <?= -$tileSize*1 ?>px <?= -$tileSize*0 ?>px; }
+.te10011 { background-position: <?= -$tileSize*2 ?>px <?= -$tileSize*0 ?>px; }
+.te10000 { background-position: <?= -$tileSize*3 ?>px <?= -$tileSize*0 ?>px; }
 
+.te11110 { background-position: <?= -$tileSize*0 ?>px <?= -$tileSize*1 ?>px; }
+.te11111 { background-position: <?= -$tileSize*1 ?>px <?= -$tileSize*1 ?>px; }
+.te11011 { background-position: <?= -$tileSize*2 ?>px <?= -$tileSize*1 ?>px; }
+.te10010 { background-position: <?= -$tileSize*3 ?>px <?= -$tileSize*1 ?>px; }
 
+.te11100 { background-position: <?= -$tileSize*0 ?>px <?= -$tileSize*2 ?>px; }
+.te11101 { background-position: <?= -$tileSize*1 ?>px <?= -$tileSize*2 ?>px; }
+.te11001 { background-position: <?= -$tileSize*2 ?>px <?= -$tileSize*2 ?>px; }
+.te11010 { background-position: <?= -$tileSize*3 ?>px <?= -$tileSize*2 ?>px; }
+
+.te10000_2 { background-position: <?= -$tileSize*0 ?>px <?= -$tileSize*3 ?>px; }
+.te10100 { background-position: <?= -$tileSize*1 ?>px <?= -$tileSize*3 ?>px; }
+.te10101 { background-position: <?= -$tileSize*2 ?>px <?= -$tileSize*3 ?>px; }
+/* ----- */
+.te10101_2 { background-position: <?= -$tileSize*4 ?>px <?= -$tileSize*3 ?>px; }
+.te10001 { background-position: <?= -$tileSize*5 ?>px <?= -$tileSize*3 ?>px; }
+
+.te10000_3 { background-position: <?= -$tileSize*0 ?>px <?= -$tileSize*4 ?>px; }
+.te10000_4 { background-position: <?= -$tileSize*1 ?>px <?= -$tileSize*4 ?>px; }
+.te10000_5 { background-position: <?= -$tileSize*2 ?>px <?= -$tileSize*4 ?>px; }
+.te11010_2 { background-position: <?= -$tileSize*3 ?>px <?= -$tileSize*4 ?>px; }
+
+.te11000 { background-position: <?= -$tileSize*3 ?>px <?= -$tileSize*5 ?>px; }
+
+#toolbar > div {
+  display: inline-block;
+  width: 64px;
+  height: 64px;
+  padding: 16px;
+  border-radius: 8px;
+  border: 3px solid rgba(<?= $rgbBaseTextRaw ?>, 0.15);
+  color: rgba(<?= $rgbBaseTextRaw ?>, 0.15);
+  margin-right: 8px;
+  margin-top: 8px;
+  transition: border-color 2s, color 2s;
+  text-align: center;
+}
+
+#toolbar > div.active {
+  border: 3px solid rgba(<?= $rgbBaseTextRaw ?>, 0.5);
+  color: rgba(<?= $rgbBaseTextRaw ?>, 0.5);
+  cursor: pointer;
+}
+
+#toolbar > div.active:hover {
+  border: 3px solid rgba(<?= $rgbBaseTextRaw ?>, 1);
+  color: rgba(<?= $rgbBaseTextRaw ?>, 1);
+}
+
+.numIndicator {
+  display: inline-block;
+  width: 64px;
+}
+
+.bad {
+  color: #f95;
+}

@@ -9,6 +9,8 @@ Stage = {
     Stage.root = domElement;
     Stage.buildDisplay();
     setInterval(Stage.tickHandler, 1000);
+    Level.start('beginning');
+    Stage.root.click(UI.stageClick);
   },
   
   addQueue : [],
@@ -17,8 +19,15 @@ Stage = {
     Stage.addQueue = [];
   },
   
+  placeAsset : function(acs) {
+    if(!acs.id) acs.id = 'as_'+objCtr++;
+    Stage.root.append('<img style="position:absolute;left:'+(acs.x*Config.tileSize)+'px;top:'+(acs.y*Config.tileSize)+'px;" '+ 
+      ' src="img/'+acs.img+'" width="'+acs.width+'" id="'+acs.id+'"/>');
+  },
+  
   addTile : function(tl) {
-    tl.id = 'tl_'+tl.type+objCtr++;
+    tl.id = 'tl_'+tl.x+'_'+tl.y;
+    GameState.map[tl.x][tl.y] = tl;
     Stage.addQueue.push(Maker.tile(tl));
   }, 
   
@@ -45,8 +54,11 @@ Stage = {
     Stage.root.append(Maker.sky());
     Stage.objects.sky = $('#sky');
     Stage.addSkyObject({ type : 'moon', time : 150 });
-    for(var sc = 0; sc < 10; sc++) 
-      Stage.addSkyObject({ caption : '*', type : 'star', time : Math.PI*200*Math.random(), yoffset : 200*Math.random() });
+    for(var sc = 0; sc < 20; sc++) 
+      Stage.addSkyObject({ 
+        caption : '*', opacity : Math.random(), 
+        type : 'star', time : Math.PI*200*Math.random(), 
+        yoffset : -30+200*Math.random() });
   },
   
   buildDisplay : function() {
@@ -84,6 +96,10 @@ Stage = {
   },
   
   tickHandler : function() {
+    UI.updateToolbar();
+    UI.updateStatusbar();
+    if(!GameState.env.gameRunning) return;
+    GameState.tick();
     $.each(Stage.orbitObjects, function(idx, so) {
       Stage.updateOrbit(so);
     });
