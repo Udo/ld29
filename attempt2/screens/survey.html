@@ -1,0 +1,27 @@
+<span id="tx"></span><img class="cursor"/>
+
+<script>
+
+  while(Game.data.potentialSites.length < 3) {
+    var newSite = Config.makeNewSite();
+    Game.data.potentialSites.push(newSite);
+  }
+
+  function getPotentialSites() {
+    var items = [];
+    $.each(Game.data.potentialSites, function(idx, ps) {
+      items.push('[&'+idx+'] '+ps.name);
+    });
+    return(items.join('$'));
+  }
+
+  UI.consoleText($('#tx'), 
+    'PLANETARY SURFACE SURVEY$$'+
+    'Potential dig sites:$'+
+    getPotentialSites());
+    
+  Game.keyHook = function(e) {
+    
+  }
+
+</script>

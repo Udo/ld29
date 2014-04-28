@@ -1,0 +1,66 @@
+@font-face {
+  font-family: console;
+  src: url('glass_tty_vt220.ttf');
+}
+
+body {
+  background: #000;
+  color: #0a3;
+  margin: 32px;
+  padding: 0;
+}
+
+body, p, h1, h2, h3, div, td {
+  font-family: console;
+  font-size: 24px;
+  line-height: 150%;
+}
+
+#screenframe {
+  width: 1124px;
+  height: 768px;
+  margin-left: auto;
+  margin-right: auto;
+  border: 4px solid #0a3;
+  border-radius: 32px;
+  overflow: hidden;
+}
+
+#screen {
+  padding: 32px;
+  background: url('../img/scanlines.png') #021;
+  height: 768px;
+  overflow: auto;
+}
+
+#menu {
+  border-bottom: 3px double #0a3;
+  margin-bottom: 8px;
+  padding-bottom: 8px;
+}
+
+#page {
+  height: 550px;
+  overflow: auto;
+}
+
+.shortcut {
+  color: #bfb;
+  text-decoration: underline;
+}
+
+#cursor {
+  margin-top: -2px;
+  vertical-align: text-bottom;
+  opacity: 0.6;
+}
+
+#stats {
+  text-align: right;
+}
+
+#menuitems {
+  border-top: 3px double #0a3;
+  margin-top: 8px;
+  padding-top: 8px;
+}
