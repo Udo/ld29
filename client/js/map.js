@@ -1,7 +1,7 @@
 Map = {
   
-  excavate : function(pos) {
-    var tl = GameState.map[pos.x][pos.y];
+  excavate : function(x, y) {
+    var tl = GameState.map[x][y];
     if(tl) {
       tl.excavated = true;
       Map.calculateExcavation();

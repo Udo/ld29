@@ -122,6 +122,7 @@ h1, .title {
 .stageObject {
   position: absolute;
   left: 0; top: 0;
+  color: <?= $rgbBaseText ?>;
 }
 
 #sky {
@@ -207,7 +208,7 @@ h1, .title {
   color: rgba(<?= $rgbBaseTextRaw ?>, 0.15);
   margin-right: 8px;
   margin-top: 8px;
-  transition: border-color 2s, color 2s;
+  transition: border-color 1s, color 1s;
   text-align: center;
 }
 
@@ -222,6 +223,12 @@ h1, .title {
   color: rgba(<?= $rgbBaseTextRaw ?>, 1);
 }
 
+#toolbar > div.selected {
+  border: 3px solid #339955;
+  color: #339955;
+  text-shadow: 0 0 8px rgba(100, 255, 150, 0.5);
+}
+
 .numIndicator {
   display: inline-block;
   width: 64px;
@@ -230,3 +237,76 @@ h1, .title {
 .bad {
   color: #f95;
 }
+
+.so_flash {
+  width: <?= $tileSize ?>px;
+  text-align: center;
+  margin-top: <?= $tileSize*0.3 ?>px;
+}
+
+#banner {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 64px;
+  text-align: center;
+  color: #9df;
+  text-shadow: 0 0 8px rgba(200, 255, 255, 0.5);
+}
+
+<?
+$pulse = '@-webkit-keyframes pulse_animation {
+	0% { -webkit-transform: scale(1); }
+	50% { -webkit-transform: scale(0.9); }
+	100% { -webkit-transform: scale(1); }
+}
+
+.pulse {
+	-webkit-animation-name: pulse_animation;
+	-webkit-animation-duration: 5000ms;
+	-webkit-transform-origin:70% 70%;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-timing-function: linear;
+}';
+
+print($pulse);
+print(str_replace('-webkit-', '-moz-', $pulse));
+print(str_replace('-webkit-', '', $pulse));
+
+$vanish = '@-webkit-keyframes vanish_animation {
+	0% { -webkit-transform: scale(1); opacity: 1;  }
+	100% { -webkit-transform: scale(0.1) translate(0px,-20px); opacity: 0; }
+}
+
+.vanish {
+	-webkit-animation-name: vanish_animation;
+	-webkit-animation-duration: 3000ms;
+	-webkit-transform-origin: 50% 0%;
+	-webkit-animation-iteration-count: 1;
+	-webkit-animation-timing-function: linear;
+}';
+
+print($vanish);
+print(str_replace('-webkit-', '-moz-', $vanish));
+print(str_replace('-webkit-', '', $vanish));
+
+$wobble = '@-webkit-keyframes wobble_animation {
+	0% { -webkit-transform: rotate(0deg); }
+	25% { -webkit-transform: rotate(5deg); }
+	50% { -webkit-transform: rotate(-5deg); }
+	75% { -webkit-transform: rotate(3deg); }
+}
+
+.wobble {
+	-webkit-animation-name: wobble_animation;
+	-webkit-animation-duration: 3000ms;
+	-webkit-transform-origin: 50% 50%;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-timing-function: linear;
+}';
+
+print($wobble);
+print(str_replace('-webkit-', '-moz-', $wobble));
+print(str_replace('-webkit-', '', $wobble));
+
+?>

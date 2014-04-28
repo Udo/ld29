@@ -9,7 +9,7 @@ GameState = {
   data : {},
   
   init : function() {
-    $.each(['Map', 'Mobs', 'Lord', 'Env'], function(idx, k) {
+    $.each(['Env', 'Map', 'Mobs', 'Lord'], function(idx, k) {
       var lk = k.toLowerCase();
       GameState.data[lk] = GameState['init'+k]();
       GameState[lk] = GameState.data[lk];
@@ -32,15 +32,17 @@ GameState = {
   },
 
   initMobs : function() {
-    return({});
+    return([]);
   },
 
   initLord : function() {
-    return({
+    var lord = {
       energy : 100,
       health : 100,
       upkeep : 1,
-      });
+      };
+    GameState.mobs.push(lord);
+    return(lord);
   },
 
   initEnv : function() {
@@ -53,6 +55,7 @@ GameState = {
   
   tick : function() {
     if(!GameState.env.gameRunning) return;
+    $.each(GameState.mobs, function(idx, mob) { if(mob.tick) mob.tick(mob); });
     GameState.env.tickCount += 1;
     if(GameState.env.tickCount > 9) {
       GameState.env.tickCount = 0;

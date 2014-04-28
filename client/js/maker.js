@@ -13,6 +13,14 @@ Maker = {
       '">'+Maker.tileInner(t)+'</div>');
   },
   
+  flash : function(t) {
+    return('<div class="stageObject so_flash vanish" id="'+t.id+'" style="left:'+
+      (t.x*Config.tileSize)+
+      'px;top:'+
+      ((t.y+Config.skyHeight)*Config.tileSize)+
+      'px;'+(t.style ? t.style : '')+'">'+t.caption+'</div>');
+  },
+  
   object : function(t) {
     return('<img class="stageObject so_'+t.type+'" width="'+t.width+'" id="'+t.id+'" style="left:'+
       (t.x*Config.tileSize)+

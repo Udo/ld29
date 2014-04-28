@@ -21,8 +21,29 @@ Stage = {
   
   placeAsset : function(acs) {
     if(!acs.id) acs.id = 'as_'+objCtr++;
-    Stage.root.append('<img style="position:absolute;left:'+(acs.x*Config.tileSize)+'px;top:'+(acs.y*Config.tileSize)+'px;" '+ 
-      ' src="img/'+acs.img+'" width="'+acs.width+'" id="'+acs.id+'"/>');
+    var x = acs.x, y = acs.y;
+    if(acs.pos) { x = acs.pos.x; y = acs.pos.y; }
+    Stage.root.append('<img style="position:absolute;left:'+(x*Config.tileSize)+'px;top:'+(y*Config.tileSize)+'px;" '+ 
+      ' src="img/'+acs.img+'" class="'+acs.class+'" width="'+acs.width+'" id="'+acs.id+'"/>');
+  },
+  
+  flashText : function(x, y, txt) {
+    var id = Stage.addObject({ x : x, y : y-Config.skyHeight, type : 'flash', caption : txt });
+    Stage.update();
+    //$('#'+id).fadeOut(2500);
+    setTimeout(function() {
+      $('#'+id).remove();
+      }, 2500);
+  },
+  
+  banner : function(txt) {
+    if(Stage.bannerTimeout) clearTimeout(Stage.bannerTimeout);
+    $('#banner').remove();
+    Stage.root.append('<div id="banner">'+txt+'</div>');
+    $('#banner').fadeOut(3500);
+    Stage.bannerTimeout = setTimeout(function() {
+      $('#banner').remove();
+      }, 4000);
   },
   
   addTile : function(tl) {
@@ -37,6 +58,7 @@ Stage = {
       Stage.addQueue.push(Maker[tl.type](tl));
     else
       Stage.addQueue.push(Maker.object(tl));
+    return(tl.id);
   }, 
   
   orbitObjects : [],
